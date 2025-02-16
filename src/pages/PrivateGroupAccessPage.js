@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import styles from './PrivateGroupAccessPage.module.css';
-import ResultModal from './ResultModal';
+import ResultModal from '../ResultModal';
 
 function PrivateGroupAccessPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+const [modalType, setModalType] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -12,6 +14,8 @@ function PrivateGroupAccessPage() {
       alert('비밀번호가 확인되었습니다. 그룹에 접근합니다.');
     } else {
       setError('비밀번호가 올바르지 않습니다.');
+      setModalType('accessDenied');
+      setIsModalOpen(true);
     }
   };
 
@@ -35,7 +39,7 @@ function PrivateGroupAccessPage() {
       </button>
       <ResultModal isOpen={isModalOpen} type={modalType} onClose={() => setIsModalOpen(false)} />
     </div>
-  );ss
+  );
 }
 
 export default PrivateGroupAccessPage;

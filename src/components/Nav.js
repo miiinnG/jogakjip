@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Container from './Container';
-import logoImg from './assets/logo.svg';
-import searchIcon from './assets/search.svg';
+import logoImg from '../assets/logo.svg';
+import searchIcon from '../assets/search.svg';
 import styles from './Nav.module.css';
 
 function Nav() {
@@ -26,9 +26,9 @@ function Nav() {
                     <Link to="/" className={styles.logo}>
                         조각집
                     </Link>
-                    <Link to="/create-group" className={styles.createGroupButton}>
-                        그룹 만들기
-                    </Link>
+                    <button className={styles.createGroupButton}>
+                        <Link to="/create-group">그룹 만들기</Link>
+                    </button>
                 </div>
 
                 <div className={styles.filterSection}>

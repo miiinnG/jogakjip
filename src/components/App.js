@@ -1,16 +1,17 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import PublicGroupListPage from './PublicGroupListPage';
-import EmptyPublicGroupListPage from './pages/EmptyPublicGroupListPage';
-import PrivateGroupAccessPage from './pages/PrivateGroupAccessPage';
-import CreateGroupPage from './pages/CreateGroupPage';
-import Nav from './Nav';
+import PublicGroupListPage from '../pages/PublicGroupListPage';
+import EmptyPublicGroupListPage from '../pages/EmptyPublicGroupListPage';
+import PrivateGroupAccessPage from '../pages/PrivateGroupAccessPage';
+import CreateGroupPage from '../pages/CreateGroupPage';
+import PrivateGroupListPage from '../pages/PrivateGroupListPage';
+import Nav from '../components/Nav';
 
 function App() {
     return (
         <Router>
             <Nav />
-            <Routes>
-                <Route path="/" element={<PublicGroupListPage />} />
+           <Routes>
+             <Route path="/" element={<PublicGroupListPage />} />
                 <Route path="/private" element={<PrivateGroupListPage />} />
                 <Route path="/empty-public" element={<EmptyPublicGroupListPage />} />
                 <Route path="/private-group-access" element={<PrivateGroupAccessPage />} />

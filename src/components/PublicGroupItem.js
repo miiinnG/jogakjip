@@ -1,6 +1,6 @@
 import styles from './PublicGroupItem.module.css';
-import defaultLogo from './assets/logo-big.svg';
-import likeIcon from './assets/logo-small.svg';
+import defaultLogo from '../assets/logo-big.svg';
+import likeIcon from '../assets/logo-small.svg';
 
 function PublicGroupItem({group}) {
     return (

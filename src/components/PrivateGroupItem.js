@@ -1,5 +1,5 @@
 import styles from './PrivateGroupItem.module.css';
-import likeIcon from './assets/logo-small.svg';
+import likeIcon from '../assets/logo-small.svg';
 
 function PrivateGroupItem({ group }) {
   return (
