@@ -1,7 +1,7 @@
 import styles from "./GroupItem.module.css";
 
 const GroupItem = ({ group }) => {
-    const { id, name, status, image, description, badges, default_thumbnail } = group;
+    const { id, name, status, image, description, badges, default_thumbnail, created_at } = group;
 
     const getDaysSinceCreation = (createdDate) => {
         const createdAt = new Date(createdDate);
@@ -27,7 +27,7 @@ const GroupItem = ({ group }) => {
 
             {/* 그룹 정보 */}
             <div className={styles.groupInfo}>
-                <p className={styles.status}>{`D+${getDaysSinceCreation(createdAt)} | {status}`}</p>
+                <p className={styles.status}>{`D+${getDaysSinceCreation(created_at)} | {status}`}</p>
                 <h3 className={styles.groupName}>{name}</h3>
                 <p className={styles.description}>{description}</p>
 
@@ -39,7 +39,7 @@ const GroupItem = ({ group }) => {
                     <span>{badges.memories}</span>
                     <span>그룹 공감</span>
                     <span>
-                        <img src="./assets/logo-small.svg" alt="like" className={style.likeIcon} />
+                        <img src="./assets/logo-small.svg" alt="like" className={styles.likeIcon} />
                         {badges.likes}
                     </span>
                 </div>

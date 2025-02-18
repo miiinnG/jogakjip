@@ -1,80 +1,74 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Container from './Container';
-import logoImg from '../assets/logo.svg';
-import searchIcon from '../assets/search.svg';
 import styles from './Nav.module.css';
+import logo from '../assets/logo.svg';
+import searchIcon from '../assets/search.svg';
 
-function Nav() {
+const Nav = ({ showTabs = false, showSearch = false, showCreateButton = false, showSortDropDown = false, setSelectedTab }) => {
+    const [activeTab, setActiveTab] = useState('공개');
 
-    const [isPublic, setIsPublic] = useState(true);
-    const [keyword, setKeyword] = useState('');
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [sortOption, setSortOption] = useState('공감순');
-
-    const handleKeywordChange = (e) => setKeyword(e.target.value);
-    const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-    const handleSortChange = (option) => {
-      setSortOption(option);
-      setIsDropdownOpen(false);
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
+        setSelectedTab(tab);
     };
 
     return (
-        <div className={styles.nav}>
-            <Container className={styles.container}>
-                <div className={styles.topSection}>
+        <nav className={styles.navbar}>
+            <div className={styles.topContainer}>
+                <div className={styles.logoWrapper}>
+                    {/* 로고 */}
                     <Link to="/" className={styles.logo}>
-                        조각집
+                        <img src={logo} alt="조각집 로고" className={styles.logoImage} />
                     </Link>
-                    <button className={styles.createGroupButton}>
-                        <Link to="/create-group">그룹 만들기</Link>
-                    </button>
                 </div>
-
-                <div className={styles.filterSection}>
-                    <div className={styles.toggleButtons}>
-                        <button 
-                            className={`${styles.toggleButton} ${isPublic ? styles.active : ''}`}
-                            onClick={() => setIsPublic(true)}
-                        >
-                            공개
-                        </button>
-                        <button
-                            className={`${styles.toggleButton} ${!isPublic ? styles.active : ''}`}
-                            onClick={() => setIsPublic(false)}
-                        >
-                            비공개
-                        </button>
-                    </div>
-
-                    <div className={styles.searchBar}>
-                        <form className={styles.form}>
-                            <img src={searchIcon} alt="검색" className={styles.searchIcon} />
-                            <input
-                                name="keyword"
-                                value={keyword}
-                                onCharge={handleKeywordChange}
-                                placeholder="그룹명을 검색해 주세요"
-                            />
-                        </form>
-                    </div>
-
-                    <div className={styles.dropdown}>
-                        <button className={styles.dropdownButton} onClick={toggleDropdown}>
-                        {sortOption} ▼
-                        </button>
-                        {isDropdownOpen && (
-                        <ul className={styles.dropdownMenu}>
-                            <li onClick={() => handleSortChange('최신순')}>최신순</li>
-                            <li onClick={() => handleSortChange('댓글순')}>댓글순</li>
-                            <li onClick={() => handleSortChange('공감순')}>공감순</li>
-                        </ul>
-                        )}
-                    </div>
+                {/* 그룹 만들기 버튼 */}
+                {showCreateButton && (
+                    <Link to="/create-group" className={styles.createButton}>
+                        그룹 만들기
+                    </Link>
+                )}
+            </div>
+            <div className={styles.bottomContainer}>
+                <div className={styles.navLeft}>
+                    {/* 공개/비공개 탭 (필요한 경우만 렌더링) */}
+                    {showTabs && (
+                        <div className={styles.tabs}>
+                            <button
+                                className={activeTab === "public" ? styles.activeTab : ""}
+                                onClick={() => handleTabClick("public")}
+                            >
+                                공개
+                            </button>
+                            <button
+                                className={activeTab === "private" ? styles.activeTab : ""}
+                                onClick={() => handleTabClick("private")}
+                            >
+                                비공개
+                            </button>
+                        </div>
+                    )}
                 </div>
-            </Container>
-        </div>
-    )
-}
+                <div className={styles.navCenter}>
+                    {/* 검색 바 (필요한 경우만 렌더링) */}
+                    {showSearch && (
+                    <div className={styles.searchContainer}>
+                        <img src={searchIcon} alt="검색 아이콘" className={styles.searchIcon} />
+                        <input type="text" placeholder="그룹명을 검색해 주세요" className={styles.searchBar} />
+                    </div>
+                )}
+                </div>
+                <div className={styles.navRight}>
+                    {/* 우측 요소들 (정렬 드롭다운) */}
+                    {showSortDropDown && (
+                        <select className={styles.sortDropDown}>
+                            <option>공감순</option>
+                            <option>최신순</option>
+                        </select>
+                    )}
+                </div>
+            </div>
+        </nav>
+    );
+};
 
 export default Nav;

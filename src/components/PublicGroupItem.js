@@ -10,7 +10,7 @@ function PublicGroupItem({group}) {
                 style={{ backgroundColor: group.image ? 'transparent' : '#efede4'}}
             >
                 {group.image ? (
-                    <imag src={group.image} alt={group.name} />
+                    <img src={group.image} alt={group.name} />
                 ) : (
                     <img src={defaultLogo} alt="기본 로고" className={styles.defaultLogo} />
                 )}

@@ -1,11 +1,23 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './PrivateGroupItem.module.css';
 import likeIcon from '../assets/logo-small.svg';
 
 function PrivateGroupItem({ group }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/private-group-access/${group.id}`); // 🔹 클릭 시 페이지 이동
+  };
+
   return (
-    <div className={styles.groupItem}>
-      <div className={styles.thumb}>
-        <img src={group.image} alt={group.name} />
+    <div className={styles.groupItem} onClick={handleClick}>
+      <div className={styles.thumb}
+        style={{ backgroundColor: group.images && group.images.length > 0 ? 'transparent' : '#efede4'}}>
+        {group.images && group.images.length > 0 ? (
+          <img src={group.images || group.default_thumbnail} alt="그룹 대표 이미지" className={styles.groupImage} />
+        ) : (
+          <img src={group.default_thumbnail} alt="기본 썸네일" className={styles.defaultLogo} />
+        )}
       </div>
 
       <div className={styles.content}>

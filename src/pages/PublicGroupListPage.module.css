@@ -1,33 +1,124 @@
 .page {
-    padding: 40px;
-  }
-  
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .groupList {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-  
-  @media (max-width: 1024px) {
-    .groupList {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .groupList {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .groupList {
-      grid-template-columns: repeat(1, 1fr);
-    }
-  }  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 40px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.groupList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.groupCard {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.groupImage {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.defaultThumbnail {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.defaultLogo {
+  width: 50px;
+  height: 50px;
+}
+
+.status {
+  font-size: 14px;
+  color: gray;
+  margin: 10px 0;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.badges {
+  display: flex;
+  justify-content: space-around;
+  font-size: 12px;
+  color: #555;
+}
+
+.noGroupsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 60vh;
+  margin-top: 0;
+}
+
+.noGroupsIcon {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 16px;
+}
+
+.noGroupsText {
+  font-size: 18px;
+  font-weight: bold;
+  color: #8D8D8D;
+  margin-bottom: 8px;
+}
+
+.createPrompt {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.createButton {
+  background-color: #282828;
+  color: #FAFAFA;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  width: 400px;
+}
+
+.createButton:hover {
+  background-color: #333;
+}

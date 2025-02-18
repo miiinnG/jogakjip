@@ -1,45 +1,59 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styles from './PrivateGroupAccessPage.module.css';
-import ResultModal from '../ResultModal';
 
-function PrivateGroupAccessPage() {
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+const PrivateGroupAccessPage = ({ group }) => {
+  const { groupId } = useParams();
+  const [password, setPassword] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-const [modalType, setModalType] = useState('');
+  const [modalType, setModalType] = useState(null);
+  const navigate = useNavigate();
+  
+  const handleSubmit = (e) => {s
+    e.preventDefault();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (password === '0000') {
-      alert('비밀번호가 확인되었습니다. 그룹에 접근합니다.');
+    if (group && password === group.password) {
+      navigate(`/private-group/${group.id}`);
     } else {
-      setError('비밀번호가 올바르지 않습니다.');
-      setModalType('accessDenied');
+      setModalType("failure");
       setIsModalOpen(true);
     }
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>조각집</div>
       <h1 className={styles.title}>비공개 그룹</h1>
-      <p className={styles.message}>비공개 그룹에 접근하기 위해 권한 확인이 필요합니다.</p>
+      <p className={styles.description}>
+        비공개 그룹에 접근하기 위해 권한 확인이 필요합니다.
+      </p>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="password"
+          placeholder="그룹 비밀번호를 입력해 주세요"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={styles.input}
+        />
+        <button type="submit" className={styles.submitButton}>제출하기</button>
+      </form>
 
-      <input
-        type="password"
-        className={styles.input}
-        placeholder="비밀번호를 입력하세요"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      {error && <p className={styles.error}>{error}</p>}
-
-      <button className={styles.submitButton} onClick={handleSubmit}>
-        제출하기
-      </button>
-      <ResultModal isOpen={isModalOpen} type={modalType} onClose={() => setIsModalOpen(false)} />
+      {/* 모달 */}
+      {isModalOpen && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <h2>비공개 그룹 접근 실패</h2>
+            <p>비밀번호가 일치하지 않습니다.</p>
+            <button onClick={handleCloseModal}>확인</button>
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default PrivateGroupAccessPage;

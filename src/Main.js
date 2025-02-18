@@ -1,11 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
-import PublicGroupListPage from './pages/PublicGroupListPage';
+import { BrowserRouter } from 'react-router-dom';
+import App from './components/App';
 
 function Main() {
     return (
-        <Routes>
-            <Route path="/" element={<PublicGroupListPage />} />
-        </Routes>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     );
 }
 
