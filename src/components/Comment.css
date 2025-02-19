@@ -1,0 +1,56 @@
+.comment {
+    display: flex;
+    justify-content: space-between; /* 댓글 내용과 버튼을 좌우로 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    border-bottom: 1px solid #ddd;
+    padding: 12px 0;
+  }
+  
+  .comment-content-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .comment-header {
+    display: flex;
+    gap: 10px; /* 닉네임과 날짜 사이 간격 */
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .comment-header strong {
+    font-size: 16px;
+    font-weight: 500;
+    color: #282828;
+  }
+  
+  .comment-date {
+    font-size: 16px;
+    font-weight: 400;
+    color: #B8B8B8;
+  }
+  
+  .comment-content {
+    font-size: 16px;
+    color: #282828;
+    margin: 10px 0 0;
+  }
+  
+  .comment-footer {
+    display: flex;
+    gap: 20px;
+    align-items: center; /* 수직 중앙 정렬 */
+  }
+  
+  .comment-footer button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .comment-footer img {
+    width: 20px;
+    height: 20px;
+  }
+  

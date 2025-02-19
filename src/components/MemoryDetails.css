@@ -1,0 +1,63 @@
+.memory-details {
+    border-bottom: 1px solid #DDDDDD;
+    padding-bottom: 40px;
+}
+
+.memory-details h1 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #282828;
+    line-height: 37.56px;
+}
+
+.memory-details p {
+    font-size: 18px;
+    color: #b8b8b8;
+}
+
+.memory-details div {
+    display: flex; /* 한 줄로 배치 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+.memory-details-location {
+    font-size: 16px;
+    font-weight: 700;
+    color: #282828;
+    margin-right: 10px; /* location과 time 사이 여백 */
+}
+
+.memory-details-time {
+    font-size: 16px;
+    font-weight: 700;
+    color: #282828;
+    margin-right: 30px;
+}
+
+.memory-actions-count img {
+    vertical-align: middle; /* 아이콘과 텍스트를 수직 정렬 */
+    margin-right: 5px; /* 아이콘과 텍스트 사이 여백 */
+    margin-left: 20px;
+}
+
+.memory-actions-count {
+    color: #8D8D8D;
+    font-size: 14px;
+}
+
+.memory-action-btn {
+    background-color: #fafafa; /* 버튼 배경색 */
+    color: #282828; /* 버튼 텍스트 색상 */
+    border-radius: 6px;
+    border-color: #282828;
+    padding: 15px 40px;
+    cursor: pointer;
+    margin-left: auto;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.memory-action-btn img {
+    vertical-align: middle; /* 아이콘과 텍스트를 수직 정렬 */
+    margin-right: 5px; /* 아이콘과 텍스트 사이 여백 */
+}

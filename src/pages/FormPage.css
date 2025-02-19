@@ -1,0 +1,195 @@
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .tag {
+    padding: 5px 5px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #8d8d8d;
+  }
+  
+  .remove-tag {
+    background: none;
+    border: none;
+    color: #b8b8b8;
+    cursor: pointer;
+    margin-left: 2px;
+    font-size: 20px;
+  }
+  
+  .create-content {
+    margin: 0 auto;
+    width: 80vw;  /* 뷰포트 너비의 80% */
+    max-width: 1120px; 
+    height: auto;
+    max-height: 90vh;
+    border-radius: 10px;
+    padding: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #282828;
+    margin-bottom: 20px;
+  }
+
+  h5 {
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+  
+  .create-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .create-form-body {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+  }
+  
+  .left-section,
+  .right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .separator {
+    width: 1px;
+    background-color: #ddd;
+    border-radius: 1px;
+    opacity: 50%;
+  }
+  
+  /* 반응형 조정 */
+  @media (max-width: 768px) {
+    .create-form-body {
+      flex-direction: column;
+    }
+  
+    .separator {
+      width: 100%;
+      height: 2px; /* 가로 구분선 */
+      margin: 20px 0;
+    }
+  }
+  
+  .input-group {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-group label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #282828;
+    margin-bottom: 8px;
+  }
+  
+  .input-group input,
+  .input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #282828;
+  }
+  
+  .input-group input:focus,
+  .input-group textarea:focus {
+    border-color: #282828;
+    outline: none;
+  }
+  
+  .input-group textarea {
+    height: 150px;
+    resize: none;
+  }
+  
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 20px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #282828;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+  
+  .submit-button {
+    width: 400px;
+    height: 50px;
+    border-radius: 6px;
+    background-color: #282828;
+    color: #fafafa;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    margin-top: 20px;
+  }
+  
+  .submit-button:hover {
+    background-color: #1f1f1f;
+  }
+  
+  

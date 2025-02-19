@@ -1,0 +1,31 @@
+.memory-header {
+    display: flex;
+    justify-content: space-between; /* 왼쪽과 오른쪽 정렬 */
+    align-items: center; /* 세로 정렬 */
+    width: 100%; /* 전체 너비 사용 */
+    padding: 10px 0;
+  }
+  
+  .memory-header-left {
+    display: flex;
+    gap: 15px; /* 닉네임과 공개 여부 간격 */
+  }
+  
+  .memory-header-right {
+    display: flex;
+    gap: 10px; /* 두 버튼 간격 */
+  }
+  
+  .memory-header-right button {
+    padding: 5px 10px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .isPublic {
+    color: #b8b8b8;
+  }
+  
