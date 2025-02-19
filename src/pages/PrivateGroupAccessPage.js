@@ -10,7 +10,7 @@ const PrivateGroupAccessPage = ({ group }) => {
   const [modalType, setModalType] = useState(null);
   const navigate = useNavigate();
   
-  const handleSubmit = (e) => {s
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (group && password === group.password) {

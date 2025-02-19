@@ -7,6 +7,7 @@ import PrivateGroupAccessPage from "../pages/PrivateGroupAccessPage";
 import EmptyPublicGroupListPage from "../pages/EmptyPublicGroupListPage";
 import "./App.module.css";
 import "./App.font.css";
+import NotFoundPage from "../pages/NotFoundPage";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Route path="/create-group" element={<CreateGroupPage />} />
         <Route path="/private-group-access" element={<PrivateGroupAccessPage />} />
         <Route path="/empty-public" element={<EmptyPublicGroupListPage />} />
+
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
   );
