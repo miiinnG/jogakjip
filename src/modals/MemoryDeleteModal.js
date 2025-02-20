@@ -29,7 +29,7 @@ const MemoryDeleteModal = ({ onClose, onDelete }) => {
               required
             />
           </div>
-          <button type="submit" className="delete-button">삭제하기</button>
+          <button type="submit" className="memory-delete-button">삭제하기</button>
         </form>
       </div>
     </div>

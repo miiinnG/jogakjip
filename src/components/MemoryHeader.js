@@ -3,16 +3,18 @@ import MemoryEditModal from "../modals/MemoryEditModal"; // 모달 컴포넌트 
 import MemoryDeleteModal from "../modals/MemoryDeleteModal";
 import "./MemoryHeader.css";
 import { deleteMemory } from "../api/api";
+import { useNavigate } from "react-router-dom";
 
 const MemoryHeader = ({ memory }) => {
+  const navigate = useNavigate();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleDelete = async (memoryData) => {
     try {
       await deleteMemory(memory.id, memoryData); // 삭제 API 호출
-/*       navigate('/group-page'); // 삭제 성공 후 그룹 페이지로 이동
- */    } catch (error) {
+      navigate('/'); // 삭제 성공 후 그룹 페이지로 이동(수정 필요)
+    } catch (error) {
       console.error('삭제 실패:', error);
     }
   }

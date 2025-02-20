@@ -36,6 +36,24 @@ export const fetchMemory = async (postId) => {
       }
   }
 
+  export const postMemory = async (groupId = 13, memoryData) => {
+    try {
+      const response = await fetch(`https://codeit-zogakzip-backend.onrender.com/api/groups/${groupId}/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(memoryData),
+      });
+  
+      if (!response.ok) throw new Error("게시글 등록에 실패했습니다.");
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
   export const updateMemory = async (postId, memoryData) => {
     try {
         const response = await fetch(`https://codeit-zogakzip-backend.onrender.com/api/posts/${postId}`, {
@@ -124,5 +142,23 @@ export const fetchMemory = async (postId) => {
       console.error(error);
       return false;
     }
+  };
+
+  export const imageToUrl = async (image) => {
+    try {
+        const response = await fetch(`https://codeit-zogakzip-backend.onrender.com/api/image`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            body: JSON.stringify(image),
+        });
+    
+        if (!response.ok) throw new Error("이미지 변환에 실패했습니다.");
+        return await response.json().imageToUrl;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
   };
   

@@ -87,7 +87,8 @@ h2 {
   
 /* 제출 버튼 스타일 */
 .submit-button,
-.comment-delete-button {
+.comment-delete-button,
+.memory-delete-button {
   max-width: 400px;
   width: 100%;
   height: 50px;

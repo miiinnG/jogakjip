@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./FormPage.css";
 import Header from "../components/Header";
+import { postMemory, imageToUrl } from "../api/api";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const MemoryCreatePage = ({ onSubmit }) => {
+const MemoryCreatePage = ({ groupId, groupPassword = "securePassword123" }) => {
+  const navigate = useNavigate();
   const [nickname, setNickname] = useState("");
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
@@ -12,7 +15,21 @@ const MemoryCreatePage = ({ onSubmit }) => {
   const [content, setContent] = useState("");
   const [moment, setMoment] = useState("");
   const [isPublic, setIsPublic] = useState(false);
-  const [password, setPassword] = useState("");
+  const [postPassword, setPostPassword] = useState("");
+
+/*   const uploadImage = async (file) => {
+    if (!file || !(file instanceof File)) return null;
+    const image = file
+    try {
+      const response = await imageToUrl(image = { image });
+      return response.imageUrl;
+    } catch (error) {
+      console.error('이미지 업로드 실패:', error);
+      return null;
+    }
+  }; */
+  
+  
 
   const handleTagInputChange = (e) => {
     setTagInput(e.target.value);
@@ -34,21 +51,37 @@ const MemoryCreatePage = ({ onSubmit }) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
-  // 폼 제출 핸들러
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onSubmit({
-      nickname,
-      title,
-      tags,
-      location,
-      image,
-      content,
-      moment,
-      isPublic,
-      password,
-    });
+    
+    let imageUrl = null;
+    if (image) {
+/*       imageUrl = await uploadImage(image);
+ */    }
+
+    imageUrl = "https://alamocitygolftrail.com/wp-content/uploads/2022/11/canstockphoto22402523-arcos-creator.com_-1024x1024-1.jpg"
+  
+    try {
+      const memoryData = {
+        nickname,
+        title,
+        tags,
+        location,
+        imageUrl,
+        content,
+        moment,
+        isPublic,
+        postPassword,
+        groupPassword,
+      };
+  
+      const success = await postMemory(groupId, memoryData);
+      navigate(`/groups/posts/${success.id}`);
+    } catch (error) {
+      console.error('게시 실패:', error);
+    }
   };
+  
 
   return (
     <div className="create-content">
@@ -114,7 +147,7 @@ const MemoryCreatePage = ({ onSubmit }) => {
             </div>
             <div className="input-group">
               <label>비밀번호</label>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호를 입력해 주세요" required />
+              <input type="password" value={postPassword} onChange={(e) => setPostPassword(e.target.value)} placeholder="비밀번호를 입력해 주세요" required />
             </div>
           </div>
         </div>
