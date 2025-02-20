@@ -1,26 +1,58 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './PrivateGroupAccessPage.module.css';
+import { verifyPassword } from '../api/groupApi';
 
-const PrivateGroupAccessPage = ({ group }) => {
+const PrivateGroupAccessPage = () => {
   const { groupId } = useParams();
   const [password, setPassword] = useState("");
+  const [isPublic, setIsPublic] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
+  const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkPublicStatus = async () => {
+      try {
+        const response = await fetch(`/api/groups/${groupId}/is-public`);
+        if(!response.ok) throw new Error("네트워크 응답이 올바르지 않습니다.");
+        const data = await response.json();
+
+        if(data.isPublic) {
+          navigate(`/groups/${groupId}`);
+        } else {
+          setIsPublic(false);
+        }
+      } catch (error) {
+        console.error("그룹 공개 여부 확인 실패:", error);
+        setModalMessage("그룹 정보를 불러오지 못했습니다.");
+        setIsModalOpen(true);
+      }
+    };
+
+    checkPublicStatus();
+  }, [groupId,navigate]);
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (group && password === group.password) {
+    try {
+      await verifyPassword(groupId, password);
+      navigate(`/group/private/${groupId}`);
+    } catch (error) {
+      alert("비밀번호가 틀렸습니다.");
+    }
+  };
+
+/*    if (group && password === group.password) {
       navigate(`/private-group/${group.id}`);
     } else {
       setModalType("failure");
       setIsModalOpen(true);
     }
   };
-
+*/
   const handleCloseModal = () => {
     setIsModalOpen(false);
   }

@@ -1,8 +1,28 @@
+import { useState, useEffect } from "react";
 import styles from './PublicGroupItem.module.css';
 import defaultLogo from '../assets/logo-big.svg';
 import likeIcon from '../assets/logo-small.svg';
 
 function PublicGroupItem({group}) {
+    const [isPublic, setIsPublic] = useState(null);
+
+    useEffect(() => {
+        const fetchGroupVisibility = async () => {
+            try {
+                const response = await fetch(`/api/groups/${group.id}/is-public`);
+                if (!response.ok) throw new Error("공개 여부 조회 실패");
+
+                const data = await response.json();
+                setIsPublic(data.isPublic);
+            } catch (error) {
+                console.error("공개 여부 조회 오류:", error);
+                setIsPublic(null);
+            }
+        };
+
+        fetchGroupVisibility();
+    }, [group.id]);
+    
     return (
         <div className={styles.PublicGroupItem}>
             <div 

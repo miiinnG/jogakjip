@@ -18,11 +18,11 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<PublicGroupListPage />} />
-        <Route path="/private" element={<PrivateGroupListPage />} />
-        <Route path="/create-group" element={<CreateGroupPage />} />
+        <Route path="/group/public" element={<PublicGroupListPage />} />
+        <Route path="/group/private" element={<PrivateGroupListPage />} />
+        <Route path="/group/create" element={<CreateGroupPage />} />
         <Route
-          path="/private-group-access"
+          path="/group/:groupId/access"
           element={<PrivateGroupAccessPage />}
         />
         <Route path="/empty-public" element={<EmptyPublicGroupListPage />} />
