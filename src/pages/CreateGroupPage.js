@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './CreateGroupPage.module.css';
 import logo from '../assets/logo.svg';
-import { createGroup } from "../api/groupApi";
+import { createGroup, uploadImage } from "../api/groupApi";
 
 const CreateGroupPage = () => {
   const navigate = useNavigate();
@@ -11,14 +11,25 @@ const CreateGroupPage = () => {
   const [isPublic, setIsPublic] = useState(true);
   const [password, setPassword] = useState('');
   const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
+  const [modalMessage, setModalMessage] = useState(''); 
 
   // 파일 업로드 핸들러
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       setImage(file);
+
+      try {
+        const uploadedImageUrl = await uploadImage(file); // 서버에 업로드 후 URL 받기
+        setImageUrl(uploadedImageUrl); // URL 저장
+        console.log("✅ [Uploaded Image URL]:", uploadedImageUrl.imageUrl);
+      } catch (error) {
+        console.error("❌ 이미지 업로드 실패:", error);
+        setModalMessage("이미지 업로드에 실패했습니다.");
+        setIsModalOpen(true);
+      } 
     }
   };
 
@@ -41,17 +52,18 @@ const CreateGroupPage = () => {
 
     const groupData = {
       name: groupName,
-      password: password || null,
-      imageUrl: "", // 이미지 업로드 기능이 없다면 빈 문자열
-      isPublic: isPublic,
-      introduction: introduction,
+      password: password || "default_password", // 빈 값이면 기본값 설정
+      imageUrl: imageUrl || "default_image_url", // 빈 값이면 기본 이미지 URL 사용
+      isPublic: Boolean(isPublic), // boolean 값으로 변환
+      introduction: introduction
     };
+
+    console.log("🚀 [Request Body]:", groupData);
 
     try {
       await createGroup(groupData);
       setModalMessage("그룹이 성공적으로 생성되었습니다.");
-      setIsModalOpen(true);
-      setTimeout(() => navigate("/group/public"),2000);
+      navigate("/groups/public");
     } catch (error) {
       console.error("Error:", error);
       setModalMessage(error.message || "그룹 생성에 실패했습니다.");
