@@ -1,20 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 
-const CommentDeleteModal = ({ onClose }) => {
+const CommentDeleteModal = ({ onClose, onSubmit }) => {
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault(); // 기본 폼 제출 방지
+
+    const commentData = { password };
+    onSubmit(commentData);
+  };
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <button className="close-button" onClick={onClose}>×</button>
         <h2>댓글 삭제</h2>
 
-        <div className="modal-form">
+        <form name="CommentDeleteForm" className="modal-form" onSubmit={handleSubmit}>
           <div className="input-group">
             <label>삭제 권한 인증</label>
-            <input type="password" placeholder="비밀번호를 입력해 주세요" />
+            <input 
+            id="password"
+            type="password" 
+            placeholder="비밀번호를 입력해 주세요" 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            />
           </div>
-        </div>
+        
 
-        <button className="delete-button">삭제하기</button>
+        <button type="submit" className="comment-delete-button">삭제하기</button>
+        </form>
       </div>
     </div>
   );

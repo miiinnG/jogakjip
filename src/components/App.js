@@ -35,7 +35,7 @@ function App() {
           element={<PrivateMemoryAccessPage />}
         />
         {/*"/groups/:groupId/posts/:postId/access"*/}
-        <Route path="/groups/posts" element={<MemoryPage />} />
+        <Route path="/groups/posts/:postId" element={<MemoryPage />} />
         {/*"/groups/:groupId/posts/:postId"*/}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
