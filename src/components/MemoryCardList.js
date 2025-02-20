@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import MemoryCard from "./MemoryCard";
 import "./MemoryList.css";
 import dummyData from "../data/dummyData";
-import badgeData from "../data/badgeData"; // 그룹 데이터 가져오기
 import moreImage from "../assets/more.png";
 import blockImage from "../assets/block.png";
 
 const MemoryCardList = ({ filter, searchQuery, sortOrder }) => {
   const [memories, setMemories] = useState([]);
   const [visibleCount, setVisibleCount] = useState(16);
-  const [groupInfo, setGroupInfo] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setMemories(dummyData); // 더미 데이터 할당
-    setGroupInfo(badgeData[0]); // 그룹 데이터 가져오기
   }, []);
 
   const loadMore = () => {
@@ -35,13 +34,10 @@ const MemoryCardList = ({ filter, searchQuery, sortOrder }) => {
         : b.likeCount - a.likeCount
     );
 
-  const isMemoryEmpty =
-    filteredMemories.length === 0 || (groupInfo && groupInfo.postCount === 0);
-
   return (
     <div>
       {/* 🔹 추억이 없을 경우 */}
-      {isMemoryEmpty ? (
+      {filteredMemories.length === 0 ? (
         <div className="empty-memory">
           <img src={blockImage} alt="게시된 추억 없음" className="block-img" />
           <p className="empty-text">게시된 추억이 없습니다.</p>
@@ -49,9 +45,16 @@ const MemoryCardList = ({ filter, searchQuery, sortOrder }) => {
         </div>
       ) : (
         <>
+          {/* 🔹 게시물 목록 */}
           <div className="memory-grid">
             {filteredMemories.slice(0, visibleCount).map((memory) => (
-              <MemoryCard key={memory.id} memory={memory} />
+              <div
+                key={memory.id}
+                onClick={() => navigate(`/groups/posts/${memory.id}`)} // 클릭 시 이동
+                style={{ cursor: "pointer" }} // 클릭 가능하도록 커서 변경
+              >
+                <MemoryCard memory={memory} />
+              </div>
             ))}
           </div>
 
