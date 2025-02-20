@@ -11,8 +11,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import MemoryCreatePage from "../pages/MemoryCreatePage";
 import PrivateMemoryAccessPage from "../pages/PrivateMemoryAccessPage";
 import MemoryPage from "../pages/MemoryPage";
-import GroupInfo from "./GroupInfo";
-import PostDetail from "./PostDetail";
+import GroupInfoPage from "../pages/GroupInfoPage";
 
 function App() {
   return (
@@ -26,6 +25,8 @@ function App() {
           element={<PrivateGroupAccessPage />}
         />
         <Route path="/empty-public" element={<EmptyPublicGroupListPage />} />
+        <Route path="/groups/:groupId" element={<GroupInfoPage />} />
+
 
         <Route path="/groups/posts/create" element={<MemoryCreatePage />} />
         {/*"/groups/:groupId/posts/create"*/}
@@ -36,8 +37,6 @@ function App() {
         {/*"/groups/:groupId/posts/:postId/access"*/}
         <Route path="/groups/posts" element={<MemoryPage />} />
         {/*"/groups/:groupId/posts/:postId"*/}
-        <Route path="/groups/info" element={<GroupInfo />} />
-        <Route path="/groups/posts/:id" element={<PostDetail />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>

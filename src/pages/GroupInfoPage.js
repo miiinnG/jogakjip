@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./GroupInfo.css";
+import "./GroupInfoPage.css";
 import flowerImage from "../assets/flower.png";
 import likeButton from "../assets/like_button.png";
 import Modify from "../modals/GroupModify"; // 수정 모달
 import GroupDelete from "../modals/GroupDelete"; // 삭제 모달
 import BadgeData from "../data/badgeData"; // 데이터 import
-import MemoryList from "./MemoryList";
+import MemoryList from "../components/MemoryList";
 //import Header from "./Header";
 import logo from "../assets/logo.png";
 

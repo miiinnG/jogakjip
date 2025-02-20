@@ -8,7 +8,7 @@ const MemoryHeader = ({ memory }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   return (
-    <div className="memory-header">
+    <div className="memory-detail-header">
       <div className="memory-header-left">
         <span>{memory.nickname}</span>
         <span>{memory.isPublic ? "| 공개" : "| 비공개"}</span>
