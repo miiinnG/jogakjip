@@ -1,0 +1,22 @@
+.memory-content {
+    max-width: 780px; /* 최대 가로 길이 1400px로 제한 */
+    margin: 0 auto; /* 가운데 정렬 */
+    padding: 20px; /* 내용물과 컨테이너 사이의 여백 */
+    box-sizing: border-box; /* padding이 width에 포함되도록 설정 */
+    padding-top: 40px;
+  }
+  
+  .memoryImg {
+    max-width: 100%; /* 이미지가 컨테이너를 벗어나지 않도록 설정 */
+    height: auto; /* 이미지 비율 유지 */
+    display: block; /* 이미지 아래 불필요한 공간 제거 */
+    margin: 0 auto 20px; /* 이미지 가운데 정렬 및 아래 여백 추가 */
+  }
+  
+  .memory-content p {
+    padding-top: 20px;
+    line-height: 28px; /* 텍스트 행간 설정 */
+    text-align: justify; /* 텍스트 양쪽 정렬 (선택사항) */
+    font-size: 20px;
+  }
+  

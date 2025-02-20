@@ -1,0 +1,84 @@
+{
+  "memory": {
+    "id": 123,
+    "groupId": 456,
+    "nickname": "김낚시",
+    "title": "인천 앞바다에서 무려 60cm 월척을 낚다!",
+    "content": "인천 앞바다에서 정말 운이 좋았던 날이었어요!\n아침 일찍 출발해서 포인트를 찾아 헤매다가, 드디어 적절한 곳을 발견했죠.\n\n처음에는 작은 고기들만 올라오다가, 갑자기 강한 당김이 느껴졌어요. 손맛이 장난 아니더군요!\n릴을 감아 올리는데 팔이 아플 정도였어요. 가까이 보니 무려 60cm짜리 대형 우럭이었어요! \n\n함께 간 친구들도 깜짝 놀라고, 주변 낚시꾼들도 몰려들어 구경했어요. \n사진도 남기고, 맛있게 요리해서 가족들과 나눠 먹었어요. 정말 잊지 못할 하루였습니다!\n\n다음에는 더 큰 녀석을 낚아보려고 합니다. 낚시는 역시 인생의 즐거움 중 하나네요!",
+    "imageUrl": "https://s3-alpha-sig.figma.com/img/7428/6073/9a23a9b2a6532c94608a6f4998493558?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HsrB0V7YPACE8z6GGT26Yhto4bxHF~F88rSsefhk3cxDJSdAvm2eavJKy-ME9vNfX-8aBkTdDAnVQAPYBzkNFfiM7-bCkCAKMlQpxX5eZKAQlydhE2SwCfnySGZ4TB3MuKiGWGlT7cxKHKapBUhPJymwQiKa4w9grMMIWXed4mRp-w3HrkjyYkpAvca2CH1Br3c5uQEe~Dkem-YYun5uksL~TXHST5g~OuiSOoMgV2Wy3vRMGTjLrUdARrsM5G2HJpPmUHCEV~s1R6VbZ0-S5AVTarEaXdRyIpaJULJa9kGDz4fTgAxw8gkWGGTK7~~BhzcYcXyxjwo61ydLpOElPg__",
+    "tags": ["인천", "낚시", "월척", "바다", "우럭"],
+    "location": "인천 앞바다",
+    "moment": "2024-02-21",
+    "isPublic": true,
+    "likeCount": 243,
+    "commentCount": 24,
+    "createdAt": "2024-02-22T07:47:49.803Z"
+  },
+  "comments": {
+    "currentPage": 1,
+    "totalPages": 3,
+    "totalItemCount": 24,
+    "data": [
+      {
+        "id": 1,
+        "nickname": "낚시광",
+        "content": "우와 60cm라니! 대박이네요! 저도 이번 주말에 도전해 봐야겠어요!",
+        "createdAt": "2024-02-22T08:00:00.000Z"
+      },
+      {
+        "id": 2,
+        "nickname": "바다소년",
+        "content": "낚시 저도 해보고 싶네요! 장비는 어떤 거 쓰셨나요?",
+        "createdAt": "2024-02-22T08:05:00.000Z"
+      },
+      {
+        "id": 3,
+        "nickname": "김물고기",
+        "content": "손맛 장난 아니었겠어요! 축하드려요! 저도 비슷한 경험 있었는데 완전 공감돼요!",
+        "createdAt": "2024-02-22T08:10:00.000Z"
+      },
+      {
+        "id": 4,
+        "nickname": "강태공",
+        "content": "60cm라니... 저도 낚시 경력 10년이지만 그런 대형 우럭은 본 적이 없어요. 정말 멋지네요!",
+        "createdAt": "2024-02-22T08:15:00.000Z"
+      },
+      {
+        "id": 5,
+        "nickname": "해변러버",
+        "content": "바닷가에서 이런 경험을 하다니! 너무 부러워요. 저도 다음번에 가보려고요!",
+        "createdAt": "2024-02-22T08:20:00.000Z"
+      },
+      {
+        "id": 6,
+        "nickname": "요리사",
+        "content": "와, 저 크기면 요리해서 먹으면 정말 맛있을 것 같아요! 어떤 요리로 드셨나요?",
+        "createdAt": "2024-02-22T08:25:00.000Z"
+      },
+      {
+        "id": 7,
+        "nickname": "낚시초보",
+        "content": "초보인데 저도 해볼 수 있을까요? 낚시 입문 조언 좀 부탁드려요!",
+        "createdAt": "2024-02-22T08:30:00.000Z"
+      },
+      {
+        "id": 8,
+        "nickname": "고기왕",
+        "content": "60cm 우럭이면 낚시터에서 바로 화제였겠네요! 부럽습니다!",
+        "createdAt": "2024-02-22T08:35:00.000Z"
+      },
+      {
+        "id": 9,
+        "nickname": "미래낚시왕",
+        "content": "혹시 포인트 공유 가능할까요? 저도 한번 가보고 싶어요!",
+        "createdAt": "2024-02-22T08:40:00.000Z"
+      },
+      {
+        "id": 10,
+        "nickname": "청새치헌터",
+        "content": "낚시는 기다림의 미학이죠. 그런데 60cm라니 정말 대단합니다!",
+        "createdAt": "2024-02-22T08:45:00.000Z"
+      }
+    ]
+  }
+}
