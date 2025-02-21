@@ -1,13 +1,33 @@
 import React, { useState } from "react";
 import "./FormPage.css";
 import Header from "../components/Header";
+import { useNavigate, useParams } from "react-router-dom";
+import { privateMemoryAccess } from "../api/api";
 
-const PrivateMemoryAccessPage = ({ onSubmit }) => {
+const PrivateMemoryAccessPage = () => {
+  const { postId } = useParams();
   const [password, setPassword] = useState("");
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onSubmit(password);
+    
+    try {
+      const request = { password };
+
+      const success = await privateMemoryAccess(postId, request);
+      if(success) {
+        navigate(`/groups/posts/${postId}`);
+      } else {
+        setIsError(true);
+        setPassword(""); // 비밀번호 초기화
+      }
+    } catch (e) {
+      console.error('조회 실패: ',e);
+      setIsError(true);
+      setPassword(""); // 비밀번호 초기화
+    }
   };
 
   return (
@@ -22,9 +42,13 @@ const PrivateMemoryAccessPage = ({ onSubmit }) => {
               id="delete-password"
               type="password" 
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="비밀번호를 입력해 주세요" 
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setIsError(false); // 입력이 변경되면 에러 상태 초기화
+              }}
+              placeholder={isError ? "비밀번호가 틀렸습니다. 다시 입력해 주세요." : "비밀번호를 입력해 주세요"}
               required
+              className={isError ? "error" : ""}
             />
           </div>
         <button type="submit" className="submit-button">제출하기</button>

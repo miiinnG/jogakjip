@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./FormPage.css";
 import Header from "../components/Header";
 import { postMemory, imageToUrl } from "../api/api";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MemoryCreatePage = ({ groupId, groupPassword = "securePassword123" }) => {
   const navigate = useNavigate();

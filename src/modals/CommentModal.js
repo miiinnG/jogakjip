@@ -43,6 +43,7 @@ const CommentModal = ({ mode, initialData = null, onClose, onSubmit }) => {
               onChange={(e) => setNickname(e.target.value)}
               placeholder="닉네임을 입력해 주세요"
               required
+              disabled={mode === "edit"}
             />
           </div>
           <div className="input-group">

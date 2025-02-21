@@ -1,6 +1,6 @@
 // src/api/api.js
 
-export const fetchMemory = async (postId) => {
+  export const fetchMemory = async (postId) => {
     try {
       const response = await fetch(`https://codeit-zogakzip-backend.onrender.com/api/posts/${postId}`);
       if (!response.ok) throw new Error("메모리 데이터를 불러오는 데 실패했습니다.");
@@ -162,3 +162,20 @@ export const fetchMemory = async (postId) => {
       }
   };
   
+  export const privateMemoryAccess = async (postId, password) => {
+    try {
+        const response = await fetch(`https://codeit-zogakzip-backend.onrender.com/api/posts/${postId}/verify-password`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(password),
+        });
+    
+        if (!response.ok) throw new Error("게시글 조회에 실패했습니다.");
+        return true;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+  }
