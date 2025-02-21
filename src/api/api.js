@@ -1,5 +1,11 @@
 import axios from "axios";
 
+const api = axios.create({
+  baseURL: "https://codeit-zogakzip-backend.onrender.com", // 서버의 기본 URL 설정
+});
+
+export default api;
+
 export const fetchMemory = async (postId) => {
   try {
     const response = await fetch(
@@ -212,16 +218,6 @@ export const privateMemoryAccess = async (postId, password) => {
     return false;
   }
 };
-
-// ✅ Axios 인스턴스 생성
-const api = axios.create({
-  baseURL: "https://codeit-zogakzip-backend.onrender.com/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-export default api;
 
 // ✅ 그룹 관련 API 요청 통합
 export const createGroup = async (groupData) => {
