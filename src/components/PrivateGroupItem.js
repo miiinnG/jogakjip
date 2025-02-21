@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from './PrivateGroupItem.module.css';
 import likeIcon from '../assets/logo-small.svg';
 import { checkGroupVisibility } from '../api/api';
+import { formatDistanceToNow } from "date-fns";
 
 function PrivateGroupItem({ group }) {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function PrivateGroupItem({ group }) {
         setIsPublic(visibility);
       } catch (error) {
         console.error("공개 여부 조회 오류:", error);
-        setIsPublic(null);
+        setIsPublic(false);
       }
     };
 
@@ -26,37 +27,39 @@ function PrivateGroupItem({ group }) {
   const handleClick = () => {
     console.log("🔹 그룹 클릭됨:", group);
     console.log(`🔹 이동할 경로: /private/${group.id}/access`);
-    navigate(`/private/${group.id}/access`, { replace: true });
+    navigate(`/group/${group.id}/access`, { replace: true });
   };
 
   return (
     <div className={styles.groupItem} onClick={handleClick}>
-      <div className={styles.thumb}
-        style={{ backgroundColor: Array.isArray(group.images) && group.images.length > 0 ? 'transparent' : '#efede4'}}>
-        {Array.isArray(group.images) && group.images.length > 0 ? (
-          <img src={group.images[0] || group.default_thumbnail} alt="그룹 대표 이미지" className={styles.groupImage} />
-        ) : (
-          <img src={group.default_thumbnail} alt="기본 썸네일" className={styles.defaultLogo} />
-        )}
-      </div>
+      <p className={styles.date}>
+        D+
+        {Math.floor(
+          (new Date() - new Date(group.createdAt)) / (1000 * 60 * 60 * 24)
+        )}{" "}
+        | 비공개
+      </p>
 
-      <div className={styles.content}>
-        <p className={styles.date}>D+{group.days} | {group.privacy}</p>
-        <h2 className={styles.title}>{group.name}</h2>
-        <div className={styles.stats}>
-          <div className={styles.stat}>
-            <span>추억</span> {group.memories}
-          </div>
-          <div className={styles.stat}>
-            <span>그룹 공감</span>
-            <button className={styles.likeButton} onClick={(e) => {
-                e.stopPropagation(); // ✅ 부모 클릭 이벤트 방지
-                //handleLikeClick();
-            }}>
-              <img src={likeIcon} alt="그룹 공감" className={styles.likeIcon} />
-              {likeCount}K
-            </button>
-          </div>
+      <h2 className={styles.title}>{group.name}</h2>
+
+      <div className={styles.stats}>
+        <div className={styles.stat}>
+          <span>획득 배지</span> {group.badgeCount}
+        </div>
+        <div className={styles.stat}>
+          <span>추억</span> {group.postCount}
+        </div>
+        <div className={styles.stat}>
+          <span>그룹 공감</span>
+          <button
+            className={styles.likeButton}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img src={likeIcon} alt="그룹 공감" className={styles.likeIcon} />
+            {group.likeCount >= 1000
+              ? Math.floor(group.likeCount / 1000) + "K"
+              : group.likeCount}
+          </button>
         </div>
       </div>
     </div>

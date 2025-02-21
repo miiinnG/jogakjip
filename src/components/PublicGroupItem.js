@@ -2,6 +2,15 @@ import { useState, useEffect } from "react";
 import styles from './PublicGroupItem.module.css';
 import defaultLogo from '../assets/logo-big.svg';
 import likeIcon from '../assets/logo-small.svg';
+import { Link } from "react-router-dom";
+import { formatDistanceToNow } from "date-fns";
+
+const formatLikeCount = (count) => {
+    if (count >= 1000) {
+      return (count / 1000).toFixed(1) + "K"; // 1.5K 형식으로 변환
+    }
+    return count; // 1000 미만이면 그대로 표시
+  };
 
 function PublicGroupItem({group}) {
     const [isPublic, setIsPublic] = useState(null);
@@ -23,38 +32,44 @@ function PublicGroupItem({group}) {
         fetchGroupVisibility();
     }, [group.id]);
     
+    const formattedDate = `D+${Math.floor(
+    (new Date() - new Date(group.createdAt)) / (1000 * 60 * 60 * 24)
+    )}`;
+
     return (
         <div className={styles.PublicGroupItem}>
+            {/* 그룹 이미지 */}
             <div 
                 className={styles.thumb}
                 style={{ backgroundColor: group.image ? 'transparent' : '#efede4'}}
             >
-                {group.image ? (
-                    <img src={group.image} alt={group.name} />
+                {group.imageUrl ? (
+                    <img src={ group.imageUrl } alt={group.name} />
                 ) : (
                     <img src={defaultLogo} alt="기본 로고" className={styles.defaultLogo} />
                 )}
             </div>
-
+            
+            {/* 그룹 정보 */}
             <div className={styles.content}>
-                <p className={styles.date}>D+{group.days} | {group.privacy}</p>
-                <h2 className={styles.title}>{group.name}</h2>
-                <p className={styles.description}>{group.description}</p>
+            <p className={styles.date}>
+                D+
+                {Math.floor(
+                (new Date() - new Date(group.createdAt)) / (1000 * 60 * 60 * 24)
+                )}{" "}
+                | 공개
+            </p>
+                <h3 className={styles.title}>{group.name}</h3>
+                <p className={styles.introduction}>{group.introduction}</p>
 
+                {/* 그룹 통계 */}
                 <div className={styles.stats}>
-                    <div className={styles.stat}>
-                        <span>획득 배지</span> 
-                        {group.badges}
-                    </div>
-                    <div className={styles.stat}>
-                        <span>추억</span> 
-                        {group.memories}
-                    </div>
-                    <div className={styles.stat}>
-                        <span>그룹 공감</span>
-                        <img src={likeIcon} alt="그룹 공감" className={styles.likeIcon} />
-                        {group.likes}K
-                    </div>
+                    <span>획득 배지 <strong>{group.badgeCount}</strong></span>
+                    <span>추억 <strong>{group.postCount}</strong></span>
+                    <span>
+                        <img className={styles.likeIcon} src={likeIcon} alt="공감" />{" "}
+                        <strong>{formatLikeCount(group.likeCount)}K</strong>
+                    </span>
                 </div>
             </div>
         </div>        
