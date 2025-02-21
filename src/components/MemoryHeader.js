@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import MemoryEditModal from "../modals/MemoryEditModal"; // 모달 컴포넌트 import
+import MemoryEditModal from "../modals/MemoryEditModal";
 import MemoryDeleteModal from "../modals/MemoryDeleteModal";
 import "./MemoryHeader.css";
-import { deleteMemory } from "../api/api";
+import { deleteMemory, updateMemory } from "../api/api";
 import { useNavigate } from "react-router-dom";
 
 const MemoryHeader = ({ memory }) => {
@@ -12,19 +12,29 @@ const MemoryHeader = ({ memory }) => {
   const [isError, setIsError] = useState(false);
 
   const handleDelete = async (memoryData) => {
-    let success;
     try {
-      success = await deleteMemory(memory.id, memoryData); // 삭제 API 호출
+      const success = await deleteMemory(memory.id, memoryData);
       if (success) {
-        navigate('/');
-      } // 삭제 성공 후 그룹 페이지로 이동(수정 필요)
-      else {
+        navigate(`/group/${memory.groupId}`);
+      } else {
         setIsError(true);
       }
     } catch (error) {
       console.error('삭제 실패:', error);
     }
-  }
+  };
+
+  const handleEdit = async (updatedData) => {
+    try {
+      console.log(updatedData);
+      const success = await updateMemory(memory.id, updatedData);
+      if (success) {
+        navigate(0); // 페이지 새로고침으로 변경된 데이터 반영
+      }
+    } catch (error) {
+      console.error('수정 실패:', error);
+    }
+  };
 
   return (
     <div className="memory-detail-header">
@@ -34,29 +44,26 @@ const MemoryHeader = ({ memory }) => {
       </div>
       <div className="memory-header-right">
         <button onClick={() => {
-          setIsEditModalOpen(true)
+          setIsEditModalOpen(true);
           setIsError(false);
-          }}>추억 수정하기</button>
+        }}>추억 수정하기</button>
         <button onClick={() => {
-          setIsDeleteModalOpen(true)
+          setIsDeleteModalOpen(true);
           setIsError(false);
-          }}>추억 삭제하기</button>
+        }}>추억 삭제하기</button>
       </div>
-      {/*수정 모달은 백 수정되고 작업필요*/}
+
       {isEditModalOpen && (
         <MemoryEditModal 
           onClose={() => setIsEditModalOpen(false)}
-          initialData={memory} // memory 데이터 전달
-          onSubmit={(formData) => {
-            console.log("수정된 데이터:", formData);
-            setIsEditModalOpen(false);
-          }}
+          initialData={memory}
+          onSubmit={handleEdit}
           isError={isError}
         />
       )}
 
       {isDeleteModalOpen && (
-        <MemoryDeleteModal onClose={() => setIsDeleteModalOpen(false)} onDelete={handleDelete} isError={isError}/>
+        <MemoryDeleteModal onClose={() => setIsDeleteModalOpen(false)} onDelete={handleDelete} isError={isError} />
       )}
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./MemoryEditModal.css";
+import { imageToUrl } from "../api/api";
 
 const MemoryEditModal = ({ onClose, onSubmit, initialData }) => {
   const [nickname, setNickname] = useState(initialData?.nickname || "");
@@ -7,11 +8,12 @@ const MemoryEditModal = ({ onClose, onSubmit, initialData }) => {
   const [tags, setTags] = useState(initialData?.tags || "");
   const [tagInput, setTagInput] = useState(""); // 입력 중인 태그
   const [location, setLocation] = useState(initialData?.location || "");
-  const [image, setImage] = useState(initialData?.imageUrl);
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(initialData?.imageUrl || "");
   const [content, setContent] = useState(initialData?.content || "");
   const [moment, setMoment] = useState(initialData?.moment || "");
   const [isPublic, setIsPublic] = useState(initialData?.isPublic || false);
-  const [password, setPassword] = useState("");
+  const [postPassword, setPassword] = useState("");
 
   // 태그 입력 핸들러
   const handleTagInputChange = (e) => {
@@ -34,19 +36,34 @@ const MemoryEditModal = ({ onClose, onSubmit, initialData }) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
+  const handleImageUpload = async (file) => {
+    if (!file || !(file instanceof File)) return;
+    try {
+      const uploadedUrl = await imageToUrl(file);
+      setImageUrl(uploadedUrl);
+    } catch (error) {
+      console.error("이미지 업로드 실패:", error);
+    }
+  };
+
   // 폼 제출 핸들러
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (image) {
+      await handleImageUpload(image);
+    }
+
     onSubmit({
       nickname,
       title,
       tags,
       location,
-      image,
+      imageUrl,
       content,
       moment,
       isPublic,
-      password,
+      postPassword,
     });
   };
 
@@ -54,7 +71,7 @@ const MemoryEditModal = ({ onClose, onSubmit, initialData }) => {
     <div className="editmodal-overlay">
       <div className="editmodal-content">
         <button className="close-button" onClick={onClose}>×</button>
-        <h2>추억 올리기</h2>
+        <h2>추억 수정하기</h2>
         <form name="MemoryEditForm" className="editmodal-form" onSubmit={handleSubmit}>
           <div className="editform-body">
             <div className="left-section">
@@ -115,12 +132,12 @@ const MemoryEditModal = ({ onClose, onSubmit, initialData }) => {
               </div>
               <div className="input-group">
                 <label>비밀번호</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호를 입력해 주세요" required />
+                <input type="password" value={postPassword} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호를 입력해 주세요" required />
               </div>
             </div>
           </div>
 
-          <button type="submit" className="submit-button">올리기</button>
+          <button type="submit" className="submit-button">수정하기</button>
         </form>
       </div>
     </div>
