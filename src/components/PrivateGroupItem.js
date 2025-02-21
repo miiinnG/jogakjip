@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import styles from './PrivateGroupItem.module.css';
 import likeIcon from '../assets/logo-small.svg';
+import { checkGroupVisibility } from '../api/api';
 
 function PrivateGroupItem({ group }) {
   const navigate = useNavigate();
@@ -11,13 +12,10 @@ function PrivateGroupItem({ group }) {
   useEffect(() => {
     const fetchGroupVisibility = async () => {
       try {
-        const response = await fetch(`/api/groups/${group.id}/is-public`);
-        if (!response.ok) throw new Error("공개 여부 조회 실패");
-
-        const data = await response.json();
-        setIsPublic(data.isPublic);
+        const visibility = await checkGroupVisibility(group.id);
+        setIsPublic(visibility);
       } catch (error) {
-        console.error("공개 여부 조회 오류:",error);
+        console.error("공개 여부 조회 오류:", error);
         setIsPublic(null);
       }
     };
@@ -25,30 +23,10 @@ function PrivateGroupItem({ group }) {
     fetchGroupVisibility();
   }, [group.id]);
 
-  //공감 버튼 클릭 시 API 호출
-  const handleLikeClick = async () => {
-    try {
-      const response = await fetch(`/api/groups/${group.id}/like`, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('공감 요청 실패');
-      }
-
-      // 공감 성공하면 likeCount 증가
-      setLikeCount((prev) => prev + 1);
-    } catch (error) {
-      console.error('공감 요청 중 오류 발생:', error);
-      alert('공감을 처리하는 중 오류가 발생했습니다.');
-    }
-  };
-
   const handleClick = () => {
-    navigate(`/private-group-access/${group.id}`); // 🔹 클릭 시 페이지 이동
+    console.log("🔹 그룹 클릭됨:", group);
+    console.log(`🔹 이동할 경로: /private/${group.id}/access`);
+    navigate(`/private/${group.id}/access`, { replace: true });
   };
 
   return (
@@ -71,7 +49,10 @@ function PrivateGroupItem({ group }) {
           </div>
           <div className={styles.stat}>
             <span>그룹 공감</span>
-            <button className={styles.likeButton} onClick={handleLikeClick}>
+            <button className={styles.likeButton} onClick={(e) => {
+                e.stopPropagation(); // ✅ 부모 클릭 이벤트 방지
+                //handleLikeClick();
+            }}>
               <img src={likeIcon} alt="그룹 공감" className={styles.likeIcon} />
               {likeCount}K
             </button>

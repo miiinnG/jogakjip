@@ -21,7 +21,7 @@ function App() {
         <Route path="/group/private" element={<PrivateGroupListPage />} />
         <Route path="/group/create" element={<CreateGroupPage />} />
         <Route
-          path="/group/:groupId/access"
+          path="/group/:id/access"
           element={<PrivateGroupAccessPage />}
         />
         <Route path="/empty-public" element={<EmptyPublicGroupListPage />} />

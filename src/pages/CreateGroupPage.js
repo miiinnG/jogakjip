@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './CreateGroupPage.module.css';
 import logo from '../assets/logo.svg';
-import { createGroup, uploadImage } from "../api/groupApi";
+import { createGroup, uploadImage } from "../api/api";
 
 const CreateGroupPage = () => {
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ const CreateGroupPage = () => {
 
   return (
     <div className={styles.container}>
-      <Link to="/"><img src={logo} alt="조각집 로고" className={styles.logo} /></Link>
+      <Link to="/group/public"><img src={logo} alt="조각집 로고" className={styles.logo} /></Link>
       <h1 className={styles.title}>그룹 만들기</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         {/* 그룹명 입력 */}
