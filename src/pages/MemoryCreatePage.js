@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import { postMemory, imageToUrl } from "../api/api";
 import { useNavigate } from "react-router-dom";
 
-const MemoryCreatePage = ({ groupId, groupPassword = "securePassword123" }) => {
+const MemoryCreatePage = ({ groupId }) => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState("");
   const [title, setTitle] = useState("");
@@ -57,6 +57,7 @@ const MemoryCreatePage = ({ groupId, groupPassword = "securePassword123" }) => {
     
     if (image) {
       const url = await uploadImage(image)
+      console.log(url);
       setImageUrl(url);
     }
       
@@ -71,7 +72,6 @@ const MemoryCreatePage = ({ groupId, groupPassword = "securePassword123" }) => {
         moment,
         isPublic,
         postPassword,
-        groupPassword,
       };
 
       console.log(memoryData);

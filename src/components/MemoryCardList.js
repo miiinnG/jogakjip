@@ -80,7 +80,12 @@ const MemoryCardList = ({ groupId, filter, searchQuery, sortOrder }) => {
             {filteredMemories.slice(0, visibleCount).map((memory) => (
               <div
                 key={memory.id}
-                onClick={() => navigate(`/groups/posts/${memory.id}`)}
+                onClick={() => {
+                  const route = memory.isPublic 
+                    ? `/groups/posts/${memory.id}` 
+                    : `/groups/posts/${memory.id}/access`;
+                  navigate(route);
+                }}
                 style={{ cursor: "pointer" }}
               >
                 <MemoryCard
