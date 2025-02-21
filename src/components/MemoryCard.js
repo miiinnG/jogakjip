@@ -30,7 +30,7 @@ const MemoryCard = ({ memory }) => {
         <div className="memory-tags">
           {memory.tags.map((tag, index) => (
             <span key={index} className="tag">
-              {tag.tagName} {/* 🔥 객체에서 tagName을 올바르게 추출 */}
+              {tag}
             </span>
           ))}
         </div>

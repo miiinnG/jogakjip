@@ -27,7 +27,7 @@ const MemoryDetails = ({ title, tags, location, createdAt, likeCount, commentCou
   return (
     <div className="memory-details">
       <h1>{title}</h1>
-      <p>{tags.map(tag => `#${tag.tagName}`).join(" ")}</p> {/* 수정 해야함!!! */}
+      <p>{tags.map(tag => `#${tag}`).join(" ")}</p> {/* 수정 해야함!!! */}
       <div>
         <span className="memory-details-location">{location}</span>
         <span className="memory-details-time">·  {formattedDate}</span>

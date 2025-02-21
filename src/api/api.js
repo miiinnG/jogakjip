@@ -177,26 +177,24 @@ export const deleteComment = async (commentId, commentData) => {
   }
 };
 
-export const imageToUrl = async (image) => {
-  try {
-    const response = await fetch(
-      `https://codeit-zogakzip-backend.onrender.com/api/image`,
-      {
+export const imageToUrl = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+  
+      const response = await fetch(`https://codeit-zogakzip-backend.onrender.com/api/image`, {
         method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        body: JSON.stringify(image),
-      }
-    );
-
-    if (!response.ok) throw new Error("이미지 변환에 실패했습니다.");
-    return await response.json().imageToUrl;
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
-};
+        body: formData, // FormData 사용
+      });
+  
+      if (!response.ok) throw new Error("이미지 변환에 실패했습니다.");
+      const data = await response.json();
+      return data.imageUrl; // 서버 응답 구조에 따라 조정 필요
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
 
 export const privateMemoryAccess = async (postId, password) => {
   try {

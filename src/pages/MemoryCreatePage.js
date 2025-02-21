@@ -16,18 +16,19 @@ const MemoryCreatePage = ({ groupId, groupPassword = "securePassword123" }) => {
   const [moment, setMoment] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [postPassword, setPostPassword] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
-/*   const uploadImage = async (file) => {
+  const uploadImage = async (file) => {
     if (!file || !(file instanceof File)) return null;
-    const image = file
+    console.log(file);
     try {
-      const response = await imageToUrl(image = { image });
-      return response.imageUrl;
+      const response = await imageToUrl(file);
+      return response;
     } catch (error) {
       console.error('이미지 업로드 실패:', error);
       return null;
     }
-  }; */
+  };
   
   
 
@@ -54,13 +55,11 @@ const MemoryCreatePage = ({ groupId, groupPassword = "securePassword123" }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     
-    let imageUrl = null;
     if (image) {
-/*       imageUrl = await uploadImage(image);
- */    }
-
-    imageUrl = "https://alamocitygolftrail.com/wp-content/uploads/2022/11/canstockphoto22402523-arcos-creator.com_-1024x1024-1.jpg"
-  
+      const url = await uploadImage(image)
+      setImageUrl(url);
+    }
+      
     try {
       const memoryData = {
         nickname,
@@ -74,6 +73,8 @@ const MemoryCreatePage = ({ groupId, groupPassword = "securePassword123" }) => {
         postPassword,
         groupPassword,
       };
+
+      console.log(memoryData);
   
       const success = await postMemory(groupId, memoryData);
       navigate(`/groups/posts/${success.id}`);
