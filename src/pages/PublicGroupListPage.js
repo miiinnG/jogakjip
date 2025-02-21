@@ -21,8 +21,9 @@ const PublicGroupListPage = () => {
             try {
                 setLoading(true);
                 const response = await fetchGroups();
+                console.log("🔍 [DEBUG] API 응답 데이터:", response); // ✅ 디버깅 추가
                 if (response) {
-                    setGroups(response.groups); // ✅ API에서 받아온 데이터 저장
+                    setGroups(response.data); // ✅ API에서 받아온 데이터 저장
                 } else {
                     setGroups([]);
                 }
@@ -39,10 +40,11 @@ const PublicGroupListPage = () => {
     }, []);
 
     // 🔹 filteredGroups에서 API 데이터 사용
-    const filteredGroups = (groups || []).filter(group => 
-        (selectedTab === "public" ? group.isPublic : !group.isPublic) &&
-        group.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredGroups = (groups || []).filter(group => {
+        console.log("🔍 [DEBUG] 그룹 데이터:", group); // ✅ 디버깅 추가
+        return (selectedTab === "public" ? group.isPublic === true : group.isPublic === false) &&
+            group.name.toLowerCase().includes(searchQuery.toLowerCase());
+    });    
 
     const sortedGroups = () => {
         return [...filteredGroups].sort((a, b) => {

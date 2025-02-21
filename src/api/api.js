@@ -253,3 +253,21 @@ export const checkGroupVisibility = async (groupId) => {
     return null;
   }
 };
+
+export const privateGroupAccess = async (groupId, password) => {
+  try {
+      const response = await fetch(`https://codeit-zogakzip-backend.onrender.com/api/groups/${groupId}/verify-password`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(password),
+      });
+  
+      if (!response.ok) throw new Error("그룹 조회에 실패했습니다.");
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+};

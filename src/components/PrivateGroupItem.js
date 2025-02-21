@@ -32,9 +32,9 @@ function PrivateGroupItem({ group }) {
   return (
     <div className={styles.groupItem} onClick={handleClick}>
       <div className={styles.thumb}
-        style={{ backgroundColor: group.images && group.images.length > 0 ? 'transparent' : '#efede4'}}>
-        {group.images && group.images.length > 0 ? (
-          <img src={group.images || group.default_thumbnail} alt="그룹 대표 이미지" className={styles.groupImage} />
+        style={{ backgroundColor: Array.isArray(group.images) && group.images.length > 0 ? 'transparent' : '#efede4'}}>
+        {Array.isArray(group.images) && group.images.length > 0 ? (
+          <img src={group.images[0] || group.default_thumbnail} alt="그룹 대표 이미지" className={styles.groupImage} />
         ) : (
           <img src={group.default_thumbnail} alt="기본 썸네일" className={styles.defaultLogo} />
         )}
