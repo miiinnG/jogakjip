@@ -106,3 +106,7 @@ h2 {
 .submit-button:hover {
   background-color: #1f1f1f;
 }
+
+.input-group input.error {
+  border-color: red;
+}

@@ -46,7 +46,7 @@ const PrivateMemoryAccessPage = () => {
                 setPassword(e.target.value);
                 setIsError(false); // 입력이 변경되면 에러 상태 초기화
               }}
-              placeholder={isError ? "비밀번호가 틀렸습니다. 다시 입력해 주세요." : "비밀번호를 입력해 주세요"}
+              placeholder={isError ? "잘못된 비밀번호입니다. 다시 입력해 주세요." : "비밀번호를 입력해 주세요"}
               required
               className={isError ? "error" : ""}
             />

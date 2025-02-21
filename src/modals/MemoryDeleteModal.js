@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./CommentModal.css";
 
-const MemoryDeleteModal = ({ onClose, onDelete }) => {
+const MemoryDeleteModal = ({ onClose, onDelete, isError }) => {
   const [postPassword, setPostPassword] = useState("");
 
   const handleSubmit = (e) => {
@@ -27,6 +27,7 @@ const MemoryDeleteModal = ({ onClose, onDelete }) => {
               onChange={(e) => setPostPassword(e.target.value)}
               placeholder="비밀번호를 입력해 주세요" 
               required
+              className={isError ? "error" : ""}
             />
           </div>
           <button type="submit" className="memory-delete-button">삭제하기</button>

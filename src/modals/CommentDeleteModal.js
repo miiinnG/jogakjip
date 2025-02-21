@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CommentDeleteModal = ({ onClose, onSubmit }) => {
+const CommentDeleteModal = ({ onClose, onSubmit, isError }) => {
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
@@ -26,6 +26,7 @@ const CommentDeleteModal = ({ onClose, onSubmit }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className={isError ? "error" : ""}
             />
           </div>
         

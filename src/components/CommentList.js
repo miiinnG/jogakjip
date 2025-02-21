@@ -10,13 +10,17 @@ const CommentList = ({ comments, setComments, postId }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedComment, setSelectedComment] = useState(null);
+  const [isError, setIsError] = useState(false);
+  
 
   const openAddModal = () => setIsAddModalOpen(true);
   const openEditModal = (comment) => {
+    setIsError(false);
     setSelectedComment(comment);
     setIsEditModalOpen(true);
   };
   const openDeleteModal = (comment) => {
+    setIsError(false);
     setSelectedComment(comment);
     setIsDeleteModalOpen(true);
   };
@@ -35,6 +39,7 @@ const CommentList = ({ comments, setComments, postId }) => {
   const handleEditSubmit = async (commentId, commentData) => {
     const updatedComment = await updateComment(commentId, commentData);
     if (updatedComment) {
+      setIsError(false);
       setComments((prev) => {
         if (!prev || !prev.data) return prev; // 데이터가 없으면 그대로 반환
         return {
@@ -42,21 +47,28 @@ const CommentList = ({ comments, setComments, postId }) => {
           data: prev.data.map((c) => (c.id === commentId ? updatedComment : c)),
         };
       });
+      setIsEditModalOpen(false);
+    } else {
+      setIsError(true);
     }
-    setIsEditModalOpen(false);
+    
   };
   
   const handleDelete = async (commentData) => {
     if (selectedComment) {
       const success = await deleteComment(selectedComment.id, commentData);
       if (success) {
+        setIsError(false);
         setComments((prev) => {
           if (!prev || !prev.data) return prev;
           return { ...prev, data: prev.data.filter((c) => c.id !== selectedComment.id) };
         });
+        setIsDeleteModalOpen(false);
+      } else {
+        setIsError(true);
       }
     }
-    setIsDeleteModalOpen(false);
+    
   };
   
 
@@ -83,11 +95,11 @@ const CommentList = ({ comments, setComments, postId }) => {
       )}
 
       {isEditModalOpen && (
-        <CommentModal mode="edit" initialData={selectedComment} onClose={() => setIsEditModalOpen(false)} onSubmit={handleEditSubmit} />
+        <CommentModal mode="edit" initialData={selectedComment} onClose={() => setIsEditModalOpen(false)} onSubmit={handleEditSubmit} isError={isError} />
       )}
 
       {isDeleteModalOpen && (
-        <CommentDeleteModal onClose={() => setIsDeleteModalOpen(false)} onSubmit={handleDelete} />
+        <CommentDeleteModal onClose={() => setIsDeleteModalOpen(false)} onSubmit={handleDelete} isError={isError} />
       )}
     </div>
   );
