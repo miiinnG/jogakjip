@@ -13,6 +13,7 @@ const MemoryListHeader = ({
     <div className="memory-header">
       <h2 className="title">추억 목록</h2>
       <div className="controls">
+        {/* 공개/비공개 필터 버튼 */}
         <button
           onClick={() => setFilter("public")}
           className={
@@ -30,6 +31,7 @@ const MemoryListHeader = ({
           비공개
         </button>
 
+        {/* 검색 입력창 */}
         <div className="search-container">
           <input
             type="text"
@@ -39,6 +41,7 @@ const MemoryListHeader = ({
           />
         </div>
 
+        {/* 정렬 옵션 */}
         <select
           className="sort-dropdown"
           onChange={(e) => setSortOrder(e.target.value)}
@@ -47,6 +50,7 @@ const MemoryListHeader = ({
           <option value="likes">공감순</option>
         </select>
 
+        {/* 추억 올리기 버튼 */}
         <button className="upload-button" onClick={addMemory}>
           추억 올리기
         </button>
