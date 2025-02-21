@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import api from "../api/api";
+import api from "../api/apis";
 import "./GroupInfoPage.css";
 import flowerImage from "../assets/flower.png";
 import likeButton from "../assets/like_button.png";

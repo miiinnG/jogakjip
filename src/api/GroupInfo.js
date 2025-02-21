@@ -1,4 +1,4 @@
-import api from "./api";
+import api from "./apis";
 
 // 모든 그룹 정보 가져오기
 export const fetchGroups = async () => {

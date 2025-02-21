@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MemoryCard from "./MemoryCard";
 import "./MemoryList.css";
-import api from "../api/api";
+import api from "../api/apis";
 import moreImage from "../assets/more.png";
 import blockImage from "../assets/block.png";
 
