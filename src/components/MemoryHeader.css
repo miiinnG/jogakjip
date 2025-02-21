@@ -1,4 +1,4 @@
-.memory-header {
+.memory-detail-header {
     display: flex;
     justify-content: space-between; /* 왼쪽과 오른쪽 정렬 */
     align-items: center; /* 세로 정렬 */

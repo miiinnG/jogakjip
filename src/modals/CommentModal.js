@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./CommentModal.css"; // 스타일 파일 import
 
-const CommentModal = ({ mode, initialData = null, onClose, onSubmit }) => {
+const CommentModal = ({ mode, initialData = null, onClose, onSubmit, isError }) => {
   const [id, setId] = useState(null);
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");  
 
   // 수정 모드라면 기존 데이터 세팅
   useEffect(() => {
@@ -43,6 +43,7 @@ const CommentModal = ({ mode, initialData = null, onClose, onSubmit }) => {
               onChange={(e) => setNickname(e.target.value)}
               placeholder="닉네임을 입력해 주세요"
               required
+              disabled={mode === "edit"}
             />
           </div>
           <div className="input-group">
@@ -64,6 +65,7 @@ const CommentModal = ({ mode, initialData = null, onClose, onSubmit }) => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="비밀번호를 입력해 주세요"
               required
+              className={isError ? "error" : ""}
             />
           </div>
 

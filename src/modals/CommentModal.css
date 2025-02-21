@@ -87,7 +87,8 @@ h2 {
   
 /* 제출 버튼 스타일 */
 .submit-button,
-.delete-button {
+.comment-delete-button,
+.memory-delete-button {
   max-width: 400px;
   width: 100%;
   height: 50px;
@@ -104,4 +105,8 @@ h2 {
 
 .submit-button:hover {
   background-color: #1f1f1f;
+}
+
+.input-group input.error {
+  border-color: red;
 }
