@@ -4,7 +4,7 @@ import styles from './Nav.module.css';
 import logo from '../assets/logo.svg';
 import searchIcon from '../assets/search.svg';
 
-const Nav = ({ showTabs = false, showSearch = false, showCreateButton = false, showSortDropDown = false, setSelectedTab }) => {
+const Nav = ({ showTabs = false, showSearch = false, showCreateButton = false, showSortDropDown = false, setSelectedTab, setSortBy, setSearchQuery }) => {
     const [activeTab, setActiveTab] = useState('공개');
 
     const handleTabClick = (tab) => {
@@ -17,13 +17,13 @@ const Nav = ({ showTabs = false, showSearch = false, showCreateButton = false, s
             <div className={styles.topContainer}>
                 <div className={styles.logoWrapper}>
                     {/* 로고 */}
-                    <Link to="/" className={styles.logo}>
+                    <Link to="/group/public" className={styles.logo}>
                         <img src={logo} alt="조각집 로고" className={styles.logoImage} />
                     </Link>
                 </div>
                 {/* 그룹 만들기 버튼 */}
                 {showCreateButton && (
-                    <Link to="/create-group" className={styles.createButton}>
+                    <Link to="/group/create" className={styles.createButton}>
                         그룹 만들기
                     </Link>
                 )}
@@ -53,16 +53,20 @@ const Nav = ({ showTabs = false, showSearch = false, showCreateButton = false, s
                     {showSearch && (
                     <div className={styles.searchContainer}>
                         <img src={searchIcon} alt="검색 아이콘" className={styles.searchIcon} />
-                        <input type="text" placeholder="그룹명을 검색해 주세요" className={styles.searchBar} />
+                        <input type="text" placeholder="그룹명을 검색해 주세요" className={styles.searchBar} onChange={(e) => setSearchQuery(e.target.value)}/>
                     </div>
                 )}
                 </div>
                 <div className={styles.navRight}>
                     {/* 우측 요소들 (정렬 드롭다운) */}
                     {showSortDropDown && (
-                        <select className={styles.sortDropDown}>
-                            <option>공감순</option>
-                            <option>최신순</option>
+                        <select 
+                            className={styles.sortDropDown}
+                            onChange={(e) => setSortBy(e.target.value)}>
+                            <option value="mostLiked">공감순</option>
+                            <option value="lastest">최신순</option>
+                            <option value="mostPosted">게시글 많은 순</option>
+                            <option value="mostBadge">획득 배지순</option>
                         </select>
                     )}
                 </div>

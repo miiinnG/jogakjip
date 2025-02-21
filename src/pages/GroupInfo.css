@@ -1,0 +1,155 @@
+/* 전체 컨테이너 */
+.group-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 왼쪽 그룹 정보 */
+.group-left {
+  display: flex;
+  align-items: center;
+}
+
+/* 🔹 프로필 이미지 크기 키우기 */
+.profile-img {
+  width: 180px; /* 기존 150px → 180px */
+  height: 180px;
+  border-radius: 8px;
+  margin-right: 20px;
+  object-fit: cover;
+}
+
+/* 그룹 정보 */
+.group-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.group-title-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.group-meta {
+  font-size: 14px;
+  color: gray;
+}
+
+.group-stats {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.group-description {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #444;
+}
+
+/* 🔹 획득 배지 스타일 조정 */
+.badge-title {
+  font-size: 14px;
+  color: gray; /* 회색 느낌으로 변경 */
+  font-weight: 600;
+  margin-bottom: 4px; /* 배지 바로 위에 배치 */
+}
+
+/* 🔹 배지 크기 및 정렬 */
+.badges {
+  display: flex;
+  gap: 8px;
+  margin-top: 0px; /* 제목과 배지가 더 가까이 붙도록 수정 */
+}
+
+.badge-img {
+  width: 140px; /* 기존보다 작게 조정 */
+  height: 40px;
+  border-radius: 5px;
+  object-fit: contain;
+}
+
+/* 오른쪽 영역 */
+.group-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 🔹 글씨들이 이미지 높이 안에 들어오도록 조정 */
+  gap: 10px;
+  height: 180px; /* 🔹 프로필 이미지 높이에 맞춤 */
+}
+
+/* 수정/삭제 버튼 */
+.group-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+  padding: 8px 12px;
+  border: solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  background-color: #f0f0f0;
+}
+
+/* 꽃 이미지 & 공감 버튼 */
+.flower-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.flower-img {
+  width: 80px;
+  height: auto;
+}
+
+.like-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 120px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.like-button img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.2s ease-in-out;
+}
+
+.like-button img:hover {
+  transform: scale(1.1);
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.logo {
+  height: 40px; /* 필요에 따라 크기 조절 */
+}

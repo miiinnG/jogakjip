@@ -17,18 +17,21 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<PublicGroupListPage />} />
-        <Route path="/private" element={<PrivateGroupListPage />} />
-        <Route path="/create-group" element={<CreateGroupPage />} />
+        <Route path="/group/public" element={<PublicGroupListPage />} />
+        <Route path="/group/private" element={<PrivateGroupListPage />} />
+        <Route path="/group/create" element={<CreateGroupPage />} />
         <Route
-          path="/private-group-access"
+          path="/group/:id/access"
           element={<PrivateGroupAccessPage />}
         />
         <Route path="/empty-public" element={<EmptyPublicGroupListPage />} />
         <Route path="/groups/:groupId" element={<GroupInfoPage />} />
 
 
-        <Route path="/groups/posts/create" element={<MemoryCreatePage />} />
+        <Route
+          path="/groups/:groupId/posts/create"
+          element={<MemoryCreatePage />}
+        />
         {/*"/groups/:groupId/posts/create"*/}
         <Route
           path="/groups/posts/:postId/access"

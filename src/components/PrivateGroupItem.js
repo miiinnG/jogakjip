@@ -1,12 +1,32 @@
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import styles from './PrivateGroupItem.module.css';
 import likeIcon from '../assets/logo-small.svg';
+import { checkGroupVisibility } from '../api/api';
 
 function PrivateGroupItem({ group }) {
   const navigate = useNavigate();
+  const [likeCount, setLikeCount] = useState(group.likes);
+  const [isPublic, setIsPublic] = useState(null);
+
+  useEffect(() => {
+    const fetchGroupVisibility = async () => {
+      try {
+        const visibility = await checkGroupVisibility(group.id);
+        setIsPublic(visibility);
+      } catch (error) {
+        console.error("공개 여부 조회 오류:", error);
+        setIsPublic(null);
+      }
+    };
+
+    fetchGroupVisibility();
+  }, [group.id]);
 
   const handleClick = () => {
-    navigate(`/private-group-access/${group.id}`); // 🔹 클릭 시 페이지 이동
+    console.log("🔹 그룹 클릭됨:", group);
+    console.log(`🔹 이동할 경로: /private/${group.id}/access`);
+    navigate(`/private/${group.id}/access`, { replace: true });
   };
 
   return (
@@ -29,8 +49,13 @@ function PrivateGroupItem({ group }) {
           </div>
           <div className={styles.stat}>
             <span>그룹 공감</span>
-            <img src={likeIcon} alt="그룹 공감" className={styles.likeIcon} />
-            {group.likes}K
+            <button className={styles.likeButton} onClick={(e) => {
+                e.stopPropagation(); // ✅ 부모 클릭 이벤트 방지
+                //handleLikeClick();
+            }}>
+              <img src={likeIcon} alt="그룹 공감" className={styles.likeIcon} />
+              {likeCount}K
+            </button>
           </div>
         </div>
       </div>
