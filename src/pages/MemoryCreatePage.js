@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import "./FormPage.css";
 import Header from "../components/Header";
 import { postMemory, imageToUrl } from "../api/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const MemoryCreatePage = ({ groupId }) => {
+const MemoryCreatePage = () => {
+  const { groupId } = useParams();
   const navigate = useNavigate();
   const [nickname, setNickname] = useState("");
   const [title, setTitle] = useState("");
@@ -57,7 +58,7 @@ const MemoryCreatePage = ({ groupId }) => {
     
     if (image) {
       const url = await uploadImage(image)
-      console.log(url);
+      console.log(` url: ${url}`);
       setImageUrl(url);
     }
       
@@ -77,7 +78,7 @@ const MemoryCreatePage = ({ groupId }) => {
       console.log(memoryData);
   
       const success = await postMemory(groupId, memoryData);
-      navigate(`/groups/posts/${success.id}`);
+      navigate(`/groups/${groupId}/posts/${success.id}`);
     } catch (error) {
       console.error('게시 실패:', error);
     }

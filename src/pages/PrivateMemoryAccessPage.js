@@ -18,7 +18,7 @@ const PrivateMemoryAccessPage = () => {
 
       const success = await privateMemoryAccess(postId, request);
       if(success) {
-        navigate(`/groups/posts/${postId}`);
+        navigate(`/groups/${groupId}/posts/${postId}`);
       } else {
         setIsError(true);
         setPassword(""); // 비밀번호 초기화
