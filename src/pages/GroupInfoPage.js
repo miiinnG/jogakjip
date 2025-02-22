@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import api from "../api/apis";
 import "./GroupInfoPage.css";
 import flowerImage from "../assets/flower.png";
@@ -11,7 +11,6 @@ import logo from "../assets/logo.png";
 import badge1 from "../assets/badge1.png";
 import badge2 from "../assets/badge2.png";
 import badge3 from "../assets/badge3.png";
-import profile from "../assets/profile.png";
 
 const badgeMap = {
   "추억 수 20개 이상 등록": badge1,
@@ -20,6 +19,7 @@ const badgeMap = {
 };
 
 const GroupInfoPage = () => {
+  const navigate = useNavigate();
   const { groupId } = useParams();
   const [groupData, setGroupData] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -50,6 +50,26 @@ const GroupInfoPage = () => {
     }
   };
 
+  const handleUpdateGroup = async (updatedData) => {
+    try {
+      console.log(updatedData);
+      await api.put(`/api/groups/${groupId}`, updatedData);
+      fetchGroupData();
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error("그룹 정보 수정 중 오류 발생:", error);
+    }
+  };
+
+  const handleDelete = async (password) => {
+    try {
+      await api.delete(`/api/groups/${groupId}`, { data: { password } });
+      navigate("/");
+    } catch (error) {
+      console.error("그룹 삭제 중 오류 발생:", error);
+    }
+  };
+
   if (loading) return <p>로딩 중...</p>;
   if (!groupData) return <p>그룹 정보를 불러오지 못했습니다.</p>;
 
@@ -62,15 +82,14 @@ const GroupInfoPage = () => {
       </header>
       <div className="group-container">
         <div className="group-left">
-          <img src={profile} alt="대표 이미지" className="profile-img" />
+          <img src={groupData.imageUrl} alt="대표 이미지" className="profile-img" />
           <div className="group-info">
             <div className="group-title-container">
               <h2>{groupData.name}</h2>
               <p className="group-meta">
                 D+
                 {Math.floor(
-                  (new Date() - new Date(groupData.createdAt)) /
-                    (1000 * 60 * 60 * 24)
+                  (new Date() - new Date(groupData.createdAt)) / (1000 * 60 * 60 * 24)
                 )}{" "}
                 | {groupData.isPublic ? "공개" : "비공개"}
               </p>
@@ -83,12 +102,7 @@ const GroupInfoPage = () => {
             <h5 className="badge-title">획득 배지</h5>
             <div className="badges">
               {groupData.badges.map((badge, index) => (
-                <img
-                  key={index}
-                  src={badgeMap[badge] || "/default-badge.png"}
-                  alt={badge}
-                  className="badge-img"
-                />
+                <img key={index} src={badgeMap[badge] || "/default-badge.png"} alt={badge} className="badge-img" />
               ))}
             </div>
           </div>
@@ -96,18 +110,8 @@ const GroupInfoPage = () => {
 
         <div className="group-right">
           <div className="group-actions">
-            <button
-              className="edit-button"
-              onClick={() => setIsEditModalOpen(true)}
-            >
-              그룹 정보 수정하기
-            </button>
-            <button
-              className="delete-button"
-              onClick={() => setIsDeleteModalOpen(true)}
-            >
-              그룹 삭제하기
-            </button>
+            <button className="edit-button" onClick={() => setIsEditModalOpen(true)}>그룹 정보 수정하기</button>
+            <button className="delete-button" onClick={() => setIsDeleteModalOpen(true)}>그룹 삭제하기</button>
           </div>
           <div className="flower-container">
             <img src={flowerImage} alt="공감" className="flower-img" />
@@ -117,18 +121,8 @@ const GroupInfoPage = () => {
           </div>
         </div>
 
-        {isEditModalOpen && (
-          <Modify
-            onClose={() => setIsEditModalOpen(false)}
-            groupData={groupData}
-          />
-        )}
-        {isDeleteModalOpen && (
-          <GroupDelete
-            onClose={() => setIsDeleteModalOpen(false)}
-            groupId={groupId}
-          />
-        )}
+        {isEditModalOpen && <Modify onClose={() => setIsEditModalOpen(false)} onSubmit={handleUpdateGroup} groupData={groupData} />}
+        {isDeleteModalOpen && <GroupDelete onClose={() => setIsDeleteModalOpen(false)} onDelete={handleDelete} />}
       </div>
 
       <MemoryList groupId={groupId} />

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { privateMemoryAccess } from "../api/api";
 
 const PrivateMemoryAccessPage = () => {
-  const { postId } = useParams();
+  const { groupId, postId } = useParams();
   const [password, setPassword] = useState("");
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();

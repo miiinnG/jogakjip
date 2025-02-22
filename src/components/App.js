@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Layout from "./Layout";
 import PublicGroupListPage from "../pages/PublicGroupListPage";
 import CreateGroupPage from "../pages/CreateGroupPage";
@@ -17,25 +17,23 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/group/public" element={<PublicGroupListPage />} />
-        <Route path="/group/private" element={<PrivateGroupListPage />} />
-        <Route path="/group/create" element={<CreateGroupPage />} />
-        <Route path="/group/:id/access" element={<PrivateGroupAccessPage />} />
+        <Route path="/" element={<Navigate to="/groups/public" replace />} />
+        <Route path="/groups/public" element={<PublicGroupListPage />} />
+        <Route path="/groups/private" element={<PrivateGroupListPage />} />
+        <Route path="/groups/create" element={<CreateGroupPage />} />
+        <Route path="/groups/:id/access" element={<PrivateGroupAccessPage />} />
         <Route path="/empty-public" element={<EmptyPublicGroupListPage />} />
-        <Route path="/group/:groupId" element={<GroupInfoPage />} />
+        <Route path="/groups/:groupId" element={<GroupInfoPage />} />
 
         <Route
           path="/groups/:groupId/posts/create"
           element={<MemoryCreatePage />}
         />
-        {/*"/groups/:groupId/posts/create"*/}
         <Route
-          path="/groups/posts/:postId/access"
+          path="/groups/:groupId/posts/:postId/access"
           element={<PrivateMemoryAccessPage />}
         />
-        {/*"/groups/:groupId/posts/:postId/access"*/}
-        <Route path="/groups/posts/:postId" element={<MemoryPage />} />
-        {/*"/groups/:groupId/posts/:postId"*/}
+        <Route path="/groups/:groupId/posts/:postId" element={<MemoryPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
