@@ -1,31 +1,64 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    padding-top: 50px;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     height: 100vh;
     text-align: center;
 }
 
 .title {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .description {
     font-size: 16px;
+    color: #555;
     margin-bottom: 20px;
 }
 
 .input {
     width: 400px;
-    height: 45px;
+    height: 50px;
     padding: 10px;
-    border-radius: 6px;
+    border-radius: 8px;
     border: 1px solid #ddd;
     font-size: 16px;
     text-align: center;
+}
+
+.submitButton {
+    width: 80%;
+    max-width: 400px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
 }
 
 .modal {

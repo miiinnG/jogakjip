@@ -5,7 +5,7 @@ import PublicGroupItem from "../components/PublicGroupItem";
 import PrivateGroupItem from "../components/PrivateGroupItem";
 import Footer from "../components/Footer";
 import styles from "./PublicGroupListPage.module.css";
-import noteIcon from "../assets/note-icon.svg"; // 아이콘 파일 import
+import noteIcon from "../assets/note-icon.svg"; 
 import { fetchGroups } from "../api/api";
 
 const PublicGroupListPage = () => {
@@ -21,14 +21,16 @@ const PublicGroupListPage = () => {
             try {
                 setLoading(true);
                 const response = await fetchGroups();
+                console.log("🔍 [DEBUG] API 응답 데이터:", response); 
+                
                 if (response) {
-                    setGroups(response.groups); // ✅ API에서 받아온 데이터 저장
+                    setGroups(response.groups || []); 
                 } else {
                     setGroups([]);
                 }
             } catch (error) {
                 console.error("공개 그룹 목록을 불러오는 중 오류 발생:", error);
-                setGroups([]); // 오류 발생 시 빈 배열
+                setGroups([]);
                 setError("그룹을 불러오는 데 실패했습니다.");
             } finally {
                 setLoading(false);
@@ -38,30 +40,39 @@ const PublicGroupListPage = () => {
         loadGroups();
     }, []);
 
-    // 🔹 filteredGroups에서 API 데이터 사용
-    const filteredGroups = (groups || []).filter(group => 
-        (selectedTab === "public" ? group.isPublic : !group.isPublic) &&
-        group.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    // ✅ 공개/비공개 그룹 필터링 수정
+    const filteredGroups = (groups || []).filter(group => {
+        console.log("🔍 [DEBUG] 그룹 데이터:", group);
+        return (selectedTab === "public" ? group.isPublic : !group.isPublic) &&
+            group.name.toLowerCase().includes(searchQuery.toLowerCase());
+    });
 
     const sortedGroups = () => {
         return [...filteredGroups].sort((a, b) => {
             if (sortBy === "latest") {
-                return new Date(b.createdAt) - new Date(a.createdAt); // 최신순 정렬
+                return new Date(b.createdAt) - new Date(a.createdAt);
             } else if (sortBy === "mostPosted") {
-                return b.postCount - a.postCount; // 게시글 많은순
+                return b.postCount - a.postCount;
             } else if (sortBy === "mostLiked") {
-                return b.likeCount - a.likeCount; // 공감순
+                return b.likeCount - a.likeCount;
             } else if (sortBy === "mostBadge") {
-                return (b.badges?.length || 0) - (a.badges?.length || 0); // 획득 배지순
+                return (b.badges?.length || 0) - (a.badges?.length || 0);
             }
             return 0;
         });
-    };    
+    };
 
     return (
         <div className={styles.page}>
-            <Nav showTabs={true} showSearch={true} showCreateButton={true} showSortDropDown={true} setSelectedTab={setSelectedTab} setSortBy={setSortBy} setSearchQuery={setSearchQuery} />
+            <Nav 
+                showTabs={true} 
+                showSearch={true} 
+                showCreateButton={true} 
+                showSortDropDown={true} 
+                setSelectedTab={setSelectedTab} 
+                setSortBy={setSortBy} 
+                setSearchQuery={setSearchQuery} 
+            />
 
             <div className={styles.groupList}>
                 {loading ? (
@@ -81,7 +92,7 @@ const PublicGroupListPage = () => {
                         <img src={noteIcon} alt="No Groups Icon" className={styles.noGroupsIcon} />
                         <p className={styles.noGroupsText}>등록된 그룹이 없습니다.</p>
                         <p className={styles.createPrompt}>가장 먼저 그룹을 만들어보세요!</p>
-                        <Link to="/group/create" className={styles.createButton}>그룹 만들기</Link>
+                        <Link to="/groups/create" className={styles.createButton}>그룹 만들기</Link>
                     </div>
                 )}
             </div>

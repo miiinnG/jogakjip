@@ -17,13 +17,13 @@ const Nav = ({ showTabs = false, showSearch = false, showCreateButton = false, s
             <div className={styles.topContainer}>
                 <div className={styles.logoWrapper}>
                     {/* 로고 */}
-                    <Link to="/group/public" className={styles.logo}>
+                    <Link to="/groups" className={styles.logo}>
                         <img src={logo} alt="조각집 로고" className={styles.logoImage} />
                     </Link>
                 </div>
                 {/* 그룹 만들기 버튼 */}
                 {showCreateButton && (
-                    <Link to="/group/create" className={styles.createButton}>
+                    <Link to="/groups/create" className={styles.createButton}>
                         그룹 만들기
                     </Link>
                 )}

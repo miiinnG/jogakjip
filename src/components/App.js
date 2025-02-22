@@ -17,11 +17,11 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Navigate to="/groups/public" replace />} />
-        <Route path="/groups/public" element={<PublicGroupListPage />} />
+        <Route path="/" element={<Navigate to="/groups" replace />} />
+        <Route path="/groups" element={<PublicGroupListPage />} />
         <Route path="/groups/private" element={<PrivateGroupListPage />} />
         <Route path="/groups/create" element={<CreateGroupPage />} />
-        <Route path="/groups/:id/access" element={<PrivateGroupAccessPage />} />
+        <Route path="/groups/:groupId/access" element={<PrivateGroupAccessPage />} />
         <Route path="/empty-public" element={<EmptyPublicGroupListPage />} />
         <Route path="/groups/:groupId" element={<GroupInfoPage />} />
 

@@ -37,13 +37,14 @@
   color: gray;
 }
 
-.groupItem {
+.PublicGroupItem {
     display: flex;
     flex-direction: column;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
+    cursor: pointer;
 }
 
 .thumb{
@@ -82,7 +83,7 @@
     margin-bottom: 8px;
 }
 
-.description {
+.introduction {
     font-size: 14px;
     color: #333;
     margin-bottom: 15px;
@@ -93,10 +94,13 @@
     justify-content: space-between;
     font-size: 12px;
     color: #555;
+    margin-top: 10px;
 }
 
 .stat span {
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .likeIcon {

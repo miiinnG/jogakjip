@@ -15,7 +15,7 @@ const MemoryHeader = ({ memory }) => {
     try {
       const success = await deleteMemory(memory.id, memoryData);
       if (success) {
-        navigate(`/group/${memory.groupId}`);
+        navigate(`/groups/${memory.groupId}`);
       } else {
         setIsError(true);
       }
